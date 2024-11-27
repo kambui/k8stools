@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cpaas-debug-sa
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cpaas-debug-crb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: cpaas-debug-sa
+  namespace: default
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cpaas-debug
+  labels:
+    app: cpaas-debug
+spec:
+  containers:
+  - name: cpaas-debug-container
+    image: cpaas-debug:latest
+    imagePullPolicy: Always
+    command: ["/bin/bash"]
+  serviceAccountName: cpaas-debug-sa
