@@ -1,0 +1,73 @@
+# -----------------------
+# OS-Specific Files
+# -----------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# -----------------------
+# Visual Studio Code
+# -----------------------
+.vscode/
+.history/
+*.code-workspace
+
+# -----------------------
+# Terraform
+# -----------------------
+# Local state files
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Plan files
+*.tfplan
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Sensitive variables
+terraform.tfvars
+terraform.tfvars.json
+
+# -----------------------
+# Bash / Shell
+# -----------------------
+# Logs and temp files
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# macOS/Linux executable perms
+*.out
+
+# -----------------------
+# YAML
+# -----------------------
+# Ignore only generated YAML (not source configs)
+# Uncomment if you generate manifests
+# /generated/*.yaml
+
+# -----------------------
+# Misc
+# -----------------------
+.env
+*.retry
+*.backup
