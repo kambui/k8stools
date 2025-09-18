@@ -7,9 +7,15 @@ steps:
 - id: 'Build'
   name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/cpaas-debug:$COMMIT_SHA', '-f', 'Containerfile', '.']
+- id: 'Tag latest'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['tag', 'gcr.io/$PROJECT_ID/cpaas-debug:$COMMIT_SHA', 'gcr.io/$PROJECT_ID/cpaas-debug:latest']
 - id: 'Push'
   name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/cpaas-debug:$COMMIT_SHA']
+- id: 'Push Latest'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/cpaas-debug:latest']
 availableSecrets:
   secretManager:
   - versionName: $_REGISTRY_USER_SECRET
