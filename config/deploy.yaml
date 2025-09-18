@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: cpaas-debug-sa
+  namespace: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -22,6 +23,7 @@ metadata:
   name: cpaas-debug
   labels:
     app: cpaas-debug
+  namespace: default
 spec:
   containers:
   - name: cpaas-debug-container
@@ -29,3 +31,4 @@ spec:
     imagePullPolicy: Always
     command: ["/bin/bash"]
   serviceAccountName: cpaas-debug-sa
+---

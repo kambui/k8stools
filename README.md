@@ -6,6 +6,11 @@
     - Some custom OpenShift SDN troubleshooting tools
     - Some network tracing tools
 
+## Build
+```
+docker build -t 'gcr.io/$PROJECT_ID/$_ENV:$COMMIT_SHA'
+```
+
 ## Deploy
 A single yaml file which deploys this in the current namespace context; using 
 ```
