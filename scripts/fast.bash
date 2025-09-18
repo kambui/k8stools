@@ -17,12 +17,13 @@ missing_list=()
 get_version() {
     local bin="$1"
     local out first
-    for flag in --version -V -v version; do
+    for flag in --version -V -v; do
         out=$("$bin" "$flag" 2>&1 || true)
         if [[ -n "$out" ]]; then
             first=$(printf '%s\n' "$out" | sed -n '1p' | tr -d '\r')
-            # skip obvious help/usage lines
-            if printf '%s\n' "$first" | grep -qiE 'usage|help'; then
+            # skip obvious help/usage lines and flag errors
+            if printf '%s\n' "$first" | \
+                grep -qiE 'usage|help|invalid (option|flag)|unknown (option|flag)|unrecognized option|illegal option|requires (an )?argument|operation not permitted|permission denied|try .+ --help'; then
                 continue
             fi
             # limit length
