@@ -12,7 +12,7 @@ steps:
   args: ['push', 'gcr.io/$PROJECT_ID/cpaas-debug:$COMMIT_SHA']
 availableSecrets:
   secretManager:
-  - versionName: $_REGISTRY_USER_SECRET
+  - versionName: projects/190785140247/secrets/registry-user/versions/1
     env: ['USERNAME']
-  - versionName: $_REGISTRY_TOKEN_SECRET
+  - versionName: projects/190785140247/secrets/redhat-registry-token/versions/1
     env: ['PASSWORD']
