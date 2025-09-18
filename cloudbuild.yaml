@@ -1,7 +1,18 @@
 steps:
+- id: 'Login'
+  name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: ['-c', 'docker login registry.redhat.io --username=$$USERNAME --password=$$PASSWORD']
+  secretEnv: ['USERNAME', 'PASSWORD']
 - id: 'Build'
   name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/cpaas-debug:$COMMIT_SHA', '-f', 'Containerfile', '.']
 - id: 'Push'
   name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/cpaas-debug:$COMMIT_SHA']
+availableSecrets:
+  secretManager:
+  - versionName: projects/190785140247/secrets/registry-user/versions/1
+    env: ['USERNAME']
+  - versionName: projects/190785140247/secrets/redhat-registry-token/versions/1
+    env: ['PASSWORD']
