@@ -1,0 +1,14 @@
+{{- if .Values.clusterrolebinding.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .Values.clusterrolebinding.name }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .Values.clusterrolebinding.roleRef.name }}
+subjects:
+- kind: {{ .Values.clusterrolebinding.subjects.kind }}
+  name: {{ .Values.clusterrolebinding.subjects.name }}
+  namespace: {{ .Values.namespace }}
+{{- end }}

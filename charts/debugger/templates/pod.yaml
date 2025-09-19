@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Values.pod.name }}
+  labels:
+    app: {{ .Values.pod.labels.app }}
+  namespace: {{ .Values.namespace }}
+spec:
+  containers:
+  - name: {{ .Values.pod.containername }}
+    image: {{ .Values.pod.image }}
+    imagePullPolicy: {{ .Values.pod.imagePullPolicy }}
+    command: {{ .Values.pod.command }}
+  serviceAccountName: {{ .Values.clusterrolebinding.subjects.name }}

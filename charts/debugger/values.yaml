@@ -1,0 +1,19 @@
+namespace: default
+
+clusterrolebinding:
+  create: true
+  name: cpaas-debug-crb
+  roleRef:
+    name: cluster-admin
+  subjects:
+    kind: ServiceAccount
+    name: cpaas-debug-sa
+
+pod:
+  labels:
+    app: cpaas-debug
+  name: cpaas-debug
+  image: gcr.io/avik-kambui/cpaas-debug:latest
+  imagePullPolicy: Always
+  command: ["/bin/bash"]
+  containername: cpaas-debug-container
