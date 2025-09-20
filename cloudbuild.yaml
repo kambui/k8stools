@@ -1,22 +1,22 @@
 steps:
-- id: 'Login'
+- id: 'Login-Registry'
   name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
   args: ['-c', 'echo "$$PASSWORD" | docker login registry.redhat.io --username "$$USERNAME" --password-stdin']
   secretEnv: ['USERNAME', 'PASSWORD']
-- id: 'Build'
+- id: 'Build-cpaas-debug-image'
   name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/cpaas-debug:$COMMIT_SHA', '-f', 'Containerfile', '.']
-- id: 'Tag latest'
+- id: 'Tag-Latest-cpaas-debug-image'
   name: 'gcr.io/cloud-builders/docker'
   args: ['tag', 'gcr.io/$PROJECT_ID/cpaas-debug:$COMMIT_SHA', 'gcr.io/$PROJECT_ID/cpaas-debug:latest']
-- id: 'Push'
+- id: 'Push-Commit-SHA'
   name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/cpaas-debug:$COMMIT_SHA']
-- id: 'Push Latest'
+- id: 'Push-Latest'
   name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/cpaas-debug:latest']
-- id: 'package-debugger-chart'
+- id: 'package-and-push-debugger-chart'
   name: 'alpine/helm:latest' # Use a Helm builder image
   entrypoint: 'sh'
   args: 
@@ -25,9 +25,6 @@ steps:
     mkdir -p output
     helm package charts/debugger --destination ./output/
     helm push ./output/debugger-*.tgz oci://gcr.io/$PROJECT_ID/debugger
-# - id: 'push-chart-to-artifact-registry'
-#   name: 'alpine/helm:latest' # Use a Helm push image
-#   args: ['push', 'output/debugger-*.tgz', 'oci://gcr.io/$PROJECT_ID/debugger']
 availableSecrets:
   secretManager:
   - versionName: $_REGISTRY_USER_SECRET
