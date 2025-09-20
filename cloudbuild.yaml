@@ -21,7 +21,7 @@ steps:
   args: ['package', 'charts/debugger', '--destination', './output/'] # Package the Helm chart in the current directory
 - id: 'push-chart-to-artifact-registry'
   name: 'alpine/helm:latest' # Use a Helm push image
-  args: ['push', './output/debugger-*.tgz', 'oci://gcr.io/$PROJECT_ID/debugger']
+  args: ['push', 'output/debugger-*.tgz', 'oci://gcr.io/$PROJECT_ID/debugger']
 availableSecrets:
   secretManager:
   - versionName: $_REGISTRY_USER_SECRET
