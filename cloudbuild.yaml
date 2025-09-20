@@ -17,10 +17,10 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/cpaas-debug:latest']
 - id: 'package-debugger-chart'
-  name: 'cgr.dev/chainguard/helm' # Use a Helm builder image
+  name: 'alpine/helm:latest' # Use a Helm builder image
   args: ['package', 'charts/debugger', '--destination', './output/'] # Package the Helm chart in the current directory
 - id: 'push-chart-to-artifact-registry'
-  name: 'cgr.dev/chainguard/helm' # Use a Helm push image
+  name: 'alpine/helm:latest' # Use a Helm push image
   args: ['push', './output/debugger-*.tgz', 'oci://gcr.io/$PROJECT_ID/debugger']
 availableSecrets:
   secretManager:
